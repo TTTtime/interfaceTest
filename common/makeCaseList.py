@@ -44,7 +44,7 @@ def makeCaseList():
                             writeData = className + '/' + defName
                             write_file('a',caseListFilePath,caseListName,writeData)
             pyCaseFileCount += 1
-            logger.info('获取 test case 列表结束，文件共 %s ,类 %s ，函数 %s'%(pyCaseFileCount))
+            logger.info('获取 test case 列表结束')
         except Exception as e:
             logger.error('获取 test case 列表时异常 %s'%(e))
             return {'result':1,'msg':'获取 test case 列表时异常 %s'%(e)}
