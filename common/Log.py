@@ -1,11 +1,50 @@
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from logging.handlers import RotatingFileHandler
 import getpathInfo
+import sys
+
 
 path = getpathInfo.get_Path()
 log_path = os.path.join(path, 'result')  # 存放log文件的路径
 
+argv0_list = sys.argv[0].split("\\")
+script_name = argv0_list[-1][0:-3]
+script_name = script_name.replace('.','')
+#base_dir = os.path.join(os.path.dirname(__file__),'../../logs')
+base_dir = os.path.join(os.path.dirname(__file__),'D:/python3/logs')
+log_file = os.path.join(base_dir,'%s.log'%script_name)
+#def get_logger(log_dir):
+'''
+fh = logging.FileHandler(log_dir,encoding='utf-8') #创建一个文件流并设置编码utf8
+logger = logging.getLogger() #获得一个logger对象，默认是root
+logger.setLevel(logging.DEBUG)  #设置最低等级debug
+fm = logging.Formatter("%(asctime)s --- %(message)s")  #设置日志格式
+logger.addHandler(fh) #把文件流添加进来，流向写入到文件
+fh.setFormatter(fm) #把文件流添加写入格式
+logger = logging.getLogger()
+'''
+logger = logging.getLogger() #定义对应的程序模块名name，默认是root
+logger.setLevel(logging.INFO) #指定最低的日志级别
+ch = logging.StreamHandler() #创建日志输出到屏幕控制台的handler
+ch.setLevel(logging.INFO) #设置日志等级
+
+#fh = logging.FileHandler(log_file)#创建向文件access.log输出日志信息的handler
+#fh.setLevel(logging.INFO) #设置输出到文件最低日志级别
+Rthandler = RotatingFileHandler(log_file, mode='a', maxBytes= 50 * 1024 * 1024, backupCount = 10)
+Rthandler.setLevel(logging.INFO)
+#create formatter
+#formatter = logging.Formatter('%(asctime)s :: %(name)s :: %(levelname)s :: %(message)s') #定义日志输出格式
+formatter = logging.Formatter('[%(asctime)s] [%(filename)s] [%(levelname)s] [line:%(lineno)d]:%(message)s')
+#add formatter to ch and fh
+ch.setFormatter(formatter) #选择一个格式
+#fh.setFormatter(formatter)
+Rthandler.setFormatter(formatter)
+
+logger.addHandler(ch) #增加指定的handler
+#logger.addHandler(fh)
+logger.addHandler(Rthandler)
 
 class Logger(object):
     def __init__(self, logger_name='logs…'):
@@ -37,7 +76,7 @@ class Logger(object):
         return self.logger
 
 
-logger = Logger().get_logger()
+#   logger = Logger().get_logger()
 
 
 # import os

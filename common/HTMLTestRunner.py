@@ -94,7 +94,7 @@ import datetime
 import io
 import sys
 import time
-import unittest
+import unittest2
 from xml.sax import saxutils
 
 
@@ -507,7 +507,7 @@ a.popup_link:hover {
 # -------------------- The end of the Template class -------------------
 
 
-TestResult = unittest.TestResult
+TestResult = unittest2.TestResult
 
 class _TestResult(TestResult):
     # note: _TestResult is a pure representation of results.
@@ -802,7 +802,7 @@ class HTMLTestRunner(Template_mixin):
 # Note: Reuse unittest.TestProgram to launch test. In the future we may
 # build our own launcher to support more specific command line
 # parameters like test title, CSS, etc.
-class TestProgram(unittest.TestProgram):
+class TestProgram(unittest2.TestProgram):
     """
     A variation of the unittest.TestProgram. Please refer to the base
     class for command line parameters.
@@ -813,7 +813,7 @@ class TestProgram(unittest.TestProgram):
         # we have to instantiate HTMLTestRunner before we know self.verbosity.
         if self.testRunner is None:
             self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
-        unittest.TestProgram.runTests(self)
+        unittest2.TestProgram.runTests(self)
 
 main = TestProgram
 
