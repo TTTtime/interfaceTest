@@ -25,7 +25,7 @@ mailFilePath = os.path.join(getpathInfo.get_Path(), 'result', 'report.html')#获
 logger = logger
 
 class send_email():
-    def mail(self):
+    def mailMain(self):
         try:
             # 创建一个实例
             with open(mailFilePath,'rb') as f:
@@ -52,5 +52,5 @@ class send_email():
 
 
 if __name__ == '__main__':# 运营此文件来验证写的send_email是否正确
-    send_email().mail()
+    send_email().mailMain()
     logger.info("send email ok!!!!!!!!!!")

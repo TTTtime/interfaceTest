@@ -37,7 +37,7 @@ class test_wt(unittest2.TestCase):
         """
         #self.case_name
         pass
-
+    @classmethod
     def setUp(self):
         """
 
